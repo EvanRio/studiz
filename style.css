@@ -430,3 +430,52 @@ footer {
 #feedback .form-wrapper {
   margin-bottom: 0; /* Supprime l’espace inutile */
 }
+
+
+/* -----------------------
+   HERO IMAGE & MASCOTTE
+------------------------*/
+.hero-image {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  /* On réduit l'écart global pour favoriser la superposition */
+  gap: 0; 
+  margin-top: 20px;
+}
+
+.mascot-hero {
+  /* Taille rétrécie */
+  width: 250px !important; 
+  height: auto;
+  /* On la décale vers la droite pour qu'elle morde sur le téléphone */
+  margin-right: -50px; 
+  /* On la descend un peu pour l'aligner à la base du tel */
+  margin-bottom: 5px; 
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+.hero-image .main-scr {
+  width: 320px;
+  border-radius: 25px;
+  position: relative;
+  z-index: 2; /* Le téléphone passe devant la mascotte */
+  box-shadow: none;
+}
+
+/* Ajustement Mobile */
+@media (max-width: 900px) {
+  .hero-image {
+    flex-direction: row; /* On garde le côte à côte même sur mobile */
+    align-items: flex-end;
+  }
+  .mascot-hero {
+    width: 120px !important;
+    margin-right: -30px;
+  }
+  .hero-image .main-scr {
+    width: 220px;
+  }
+}
