@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studiz - Relief de France</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* -----------------------
+            BASE (Style Studiz)
+        ------------------------*/
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #fbe4f5 0%, #f8f3ff 60%, #fff 100%);
+            min-height: 100vh;
+            color: #2b1b2e;
+            line-height: 1.6;
+        }
+
+        /* -----------------------
+            NAVBAR
+        ------------------------*/
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-text { font-weight: 700; font-size: 1.4rem; color: #e50585; text-decoration: none; }
+        .btn-nav {
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(229, 5, 133, 0.2);
+        }
+
+        /* -----------------------
+            CONTAINER
+        ------------------------*/
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; color: #1d0720; }
+        .text-gradient {
+            background: linear-gradient(90deg, #e50585, #a94eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .score { color:#55355d; margin-bottom:25px; font-weight: 600; }
+        .score span#good { color:#e50585; font-size: 1.2rem; }
+
+        /* -----------------------
+            CARD & GAMEPLAY
+        ------------------------*/
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .region-img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #f0f0f0;
+            background: #fdfdfd;
+        }
+        input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        input:focus { outline:none; border-color:#e50585; background: #fff; }
+        input.correct { border-color:#10b981; background:#f0fdf4; color:#10b981; }
+        input.incorrect { border-color:#ef4444; background:#fef2f2; color:#ef4444; }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(229, 5, 133, 0.2);
+            transition: transform 0.2s;
+        }
+        button:hover { transform:translateY(-2px); }
+
+        .result { margin-top:15px; padding:15px; border-radius:12px; font-weight:bold; }
+        .correctBox { background:#f0fdf4; color:#10b981; }
+        .incorrectBox { background:#fef2f2; color:#ef4444; }
+        .correction { margin-top:5px; font-weight:500; font-size: 0.9rem; color: #2b1b2e; }
+
+        /* Final Screen */
+        .final-screen { display: none; }
+        .final-score { font-size: 3rem; font-weight: 700; color: #e50585; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="https://studiz.fun" class="logo-text">Studiz</a>
+    </div>
+    <div class="nav-right">
+        <a href="train.html" class="btn-nav">Retour aux jeux</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div id="quiz-ui">
+        <h1>⛰️ <span class="text-gradient">Relief France</span></h1>
+        <div class="score">Progression : <span id="good">0</span> / <span id="total">0</span></div>
+
+        <div class="card">
+            <img id="montagneImg" class="region-img" src="" alt="Massif">
+            <input id="answer" placeholder="Nom du massif..." autocomplete="off">
+            <button id="mainBtn" onclick="check()">Vérifier</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <div id="final-ui" class="final-screen">
+        <h1>🏁 <span class="text-gradient">Terminé !</span></h1>
+        <div class="card">
+            <p>Ton score final est de :</p>
+            <div class="final-score"><span id="finalGood">0</span> / <span id="finalTotal">0</span></div>
+            <p id="feedback-msg"></p>
+            <button onclick="restart()">🔄 Recommencer l'exercice</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const montagnes = [
+ {name:"Les Alpes", img:"images/alpes.png"},
+ {name:"Le Jura", img:"images/jura.png"},
+ {name:"Les Pyrénées", img:"images/pyrenees.png"},
+ {name:"La Corse", img:"images/corse.png"},
+ {name:"Le Massif Central", img:"images/massif-central.png"},
+ {name:"Les Vosges", img:"images/vosges.png"}
+];
+
+let playlist = [];
+let currentIndex = 0;
+let goodCount = 0;
+let answered = false;
+
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+function restart() {
+    playlist = shuffle([...montagnes]);
+    currentIndex = 0;
+    goodCount = 0;
+    document.getElementById("quiz-ui").style.display = "block";
+    document.getElementById("final-ui").style.display = "none";
+    nextQ();
+}
+
+function nextQ() {
+    if (currentIndex >= playlist.length) {
+        showFinalScore();
+        return;
+    }
+    
+    let current = playlist[currentIndex];
+    document.getElementById("montagneImg").src = current.img;
+    const inp = document.getElementById("answer");
+    inp.value = "";
+    inp.disabled = false;
+    inp.className = "";
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("mainBtn").textContent = "Vérifier";
+    document.getElementById("good").textContent = goodCount;
+    document.getElementById("total").textContent = currentIndex + " / " + playlist.length;
+    inp.focus();
+    answered = false;
+}
+
+function normalize(x){ 
+    return x.toLowerCase().trim()
+        .replace(/\s+/g," ")
+        .replace(/[éèêë]/g,"e")
+        .replace(/[àâ]/g,"a")
+        .replace(/[îï]/g,"i")
+        .replace(/[ôö]/g,"o")
+        .replace(/[ûùü]/g,"u")
+        .replace(/^(le |la |les |l')/i, "") // Ignore les articles au début
+        .replace(/-/g," "); 
+}
+
+function check() {
+    if (answered) {
+        currentIndex++;
+        nextQ();
+        return;
+    }
+
+    const inp = document.getElementById("answer");
+    const user = normalize(inp.value);
+    const correct = normalize(playlist[currentIndex].name);
+
+    if (user === correct) {
+        goodCount++;
+        inp.classList.add("correct");
+        document.getElementById("result").innerHTML = `<div class="result correctBox">⛰️ C'est ça ! Bien joué.</div>`;
+    } else {
+        inp.classList.add("incorrect");
+        document.getElementById("result").innerHTML = `<div class="result incorrectBox">Erreur !<div class="correction">Il s'agissait de : <strong>${playlist[currentIndex].name}</strong></div></div>`;
+    }
+
+    document.getElementById("mainBtn").textContent = "Continuer";
+    inp.disabled = true;
+    answered = true;
+}
+
+function showFinalScore() {
+    document.getElementById("quiz-ui").style.display = "none";
+    document.getElementById("final-ui").style.display = "block";
+    document.getElementById("finalGood").textContent = goodCount;
+    document.getElementById("finalTotal").textContent = playlist.length;
+    
+    let msg = "";
+    let percent = (goodCount / playlist.length) * 100;
+    if(percent === 100) msg = "Incroyable ! Tu as gravi tous les sommets sans faute ! 🧗‍♂️";
+    else if(percent >= 60) msg = "Bravo ! Une belle vue d'ensemble sur le relief français. 🐭";
+    else msg = "Petit faux pas en montagne ? On recommence pour s'améliorer ! 🏕️";
+    document.getElementById("feedback-msg").textContent = msg;
+}
+
+document.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+
+restart();
+</script>
+</body>
+</html>

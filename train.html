@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studiz - Entraînements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* -----------------------
+            BASE (Style Studiz)
+        ------------------------*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at top, #fbe4f5 0%, #f8f3ff 60%, #fff 100%);
+            color: #2b1b2e;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* -----------------------
+            NAVBAR
+        ------------------------*/
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #e50585;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .logo-text:hover {
+            opacity: 0.8;
+        }
+
+        /* Bouton Retour Accueil */
+        .btn-nav {
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(229, 5, 133, 0.2);
+            transition: all 0.3s;
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 5, 133, 0.3);
+        }
+
+        /* -----------------------
+            CONTAINER & TITRES
+        ------------------------*/
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1d0720;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #e50585, #a94eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #55355d;
+            margin-bottom: 50px;
+        }
+
+        /* -----------------------
+            GRID & CARDS
+        ------------------------*/
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(229, 5, 133, 0.15);
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: #e50585;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* -----------------------
+            BOUTONS (Style Studiz)
+        ------------------------*/
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(229, 5, 133, 0.2);
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(229, 5, 133, 0.3);
+        }
+
+        .footer {
+            margin-top: 60px;
+            color: #8a6d91;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Animation d'apparition */
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media(max-width: 700px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .navbar { padding: 15px 5%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="https://studiz.fun" class="logo-text">Studiz</a>
+    </div>
+    <div class="nav-right">
+        <a href="https://studiz.fun" class="btn-nav">Retour à l'accueil</a>
+    </div>
+</nav>
+
+<div class="container fade-in">
+    <h1>📚  <span class="text-gradient">Entraînement</span></h1>
+    <div class="subtitle">Prépare tes contrôles en t'amusant 🐭</div>
+
+    <div class="grid">
+
+        <div class="card" onclick="go('verbe.html')">
+            <span class="icon">🔤</span>
+            <h2>Verbes Irréguliers</h2>
+            <p>Apprentissage intelligent avec correction automatique et score.</p>
+            <span class="btn">S'entraîner</span>
+        </div>
+
+        <div class="card" onclick="go('object.html')">
+            <span class="icon">❓</span>
+            <h2>Questions Trainer</h2>
+            <p>Transformer des phrases en questions — présent & passé.</p>
+            <span class="btn">S'entraîner</span>
+        </div>
+
+        <div class="card" onclick="go('regions.html')">
+            <span class="icon">🗺️</span>
+            <h2>Régions France</h2>
+            <p>Identifier toutes les régions sur une carte muette.</p>
+            <span class="btn">S'entraîner</span>
+        </div>
+
+        <div class="card" onclick="go('fleuves.html')">
+            <span class="icon">🌊</span>
+            <h2>Fleuves France</h2>
+            <p>Repérer les principaux fleuves sur une carte muette.</p>
+            <span class="btn">S'entraîner</span>
+        </div>
+
+        <div class="card" onclick="go('relief.html')">
+            <span class="icon">⛰️</span>
+            <h2>Relief France</h2>
+            <p>Identifier les chaînes de montagnes et massifs principaux.</p>
+            <span class="btn">S'entraîner</span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Fait avec 💖 pour les étudiants Studiz
+    </div>
+</div>
+
+<script>
+    function go(page){
+        window.location.href = page;
+    }
+</script>
+
+</body>
+</html>

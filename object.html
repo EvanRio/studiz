@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studiz - Questions Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+    /* -----------------------
+        BASE (Style Studiz)
+    ------------------------*/
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: radial-gradient(circle at top, #fbe4f5 0%, #f8f3ff 60%, #fff 100%);
+        min-height:100vh;
+        color: #2b1b2e;
+        line-height: 1.6;
+    }
+
+    /* -----------------------
+        NAVBAR
+    ------------------------*/
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 8%;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .logo-text {
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #e50585;
+        text-decoration: none;
+    }
+
+    .btn-nav {
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(135deg, #e50585, #ff66b3);
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 12px rgba(229, 5, 133, 0.2);
+    }
+
+    /* -----------------------
+        CONTAINER
+    ------------------------*/
+    .container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    h1 { text-align:center; font-size: 2.2rem; margin-bottom: 10px; color: #1d0720; }
+    .text-gradient {
+        background: linear-gradient(90deg, #e50585, #a94eff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .score { 
+        text-align:center; 
+        color:#55355d; 
+        margin-bottom:30px;
+        font-weight: 600;
+    }
+    .score span#good { color:#e50585; font-size: 1.2rem; }
+
+    /* -----------------------
+        CARD & GAMEPLAY
+    ------------------------*/
+    .card {
+        background: white;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: none;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .label-badge {
+        display: inline-block;
+        padding: 4px 15px;
+        background: #f0f0f0;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .sentence {
+        font-size: 1.8rem;
+        color: #2b1b2e;
+        font-weight: 700;
+        margin: 20px 0;
+        line-height: 1.2;
+    }
+
+    input {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #f0f0f0;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+        background: #fdfdfd;
+        text-align: center;
+    }
+
+    input:focus { outline:none; border-color:#e50585; background: #fff; }
+    input.correct { border-color:#10b981; background:#f0fdf4; color: #10b981; }
+    input.incorrect { border-color:#ef4444; background:#fef2f2; color: #ef4444; }
+
+    button {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #e50585, #ff66b3);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+        box-shadow: 0 5px 15px rgba(229, 5, 133, 0.2);
+        transition: transform 0.2s;
+    }
+
+    button:hover { transform:translateY(-2px); }
+
+    /* -----------------------
+        RESULTS
+    ------------------------*/
+    .result { margin-top:20px; padding:15px; border-radius:12px; font-weight:700; }
+    .correctBox { background:#f0fdf4; color:#10b981; }
+    .incorrectBox { background:#fef2f2; color:#ef4444; }
+    .correction { margin-top:5px; font-weight:500; font-size: 0.9rem; color: #2b1b2e; }
+
+    .pdf-link {
+        display: block;
+        text-align: center;
+        color: #e50585;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-top: 20px;
+    }
+
+    .pdf-link:hover { text-decoration: underline; }
+
+    @media(max-width: 600px) {
+        .card { padding: 25px; }
+        .sentence { font-size: 1.4rem; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="https://studiz.fun" class="logo-text">Studiz</a>
+    </div>
+    <div class="nav-right">
+        <a href="train.html" class="btn-nav">Retour aux jeux</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>🎯 <span class="text-gradient">Questions Trainer</span></h1>
+    <div class="score">Ton score : <span id="good">0</span> / <span id="total">0</span></div>
+
+    <div class="card">
+        <div id="typeLabel" class="label-badge"></div>
+        <div id="tenseLabel" class="label-badge" style="background: #f8f3ff; color: #a94eff;"></div>
+        <div class="sentence" id="sentence"></div>
+        <input id="answer" placeholder="Tape ta question ici..." autocomplete="off">
+        <button id="mainBtn" onclick="check()">Vérifier</button>
+        <div id="result"></div>
+    </div>
+    
+    <a class="pdf-link" href="objectcour.pdf" target="_blank">📄 Lire la fiche de cours (PDF)</a>
+</div>
+
+<script>
+const data = [
+  // OBJECT QUESTIONS - Present Simple
+  {s:"Julie loves ice cream", a:"what does julie love?", type:"Object Question", tense:"Present Simple"},
+  {s:"Tom eats pizza", a:"what does tom eat?", type:"Object Question", tense:"Present Simple"},
+  {s:"Paul reads books", a:"what does paul read?", type:"Object Question", tense:"Present Simple"},
+  {s:"Emma drinks coffee", a:"what does emma drink?", type:"Object Question", tense:"Present Simple"},
+  {s:"They play football", a:"what do they play?", type:"Object Question", tense:"Present Simple"},
+  {s:"The teacher helps students", a:"who does the teacher help?", type:"Object Question", tense:"Present Simple"},
+  {s:"Julie sends emails", a:"what does julie send?", type:"Object Question", tense:"Present Simple"},
+  {s:"They sell cars", a:"what do they sell?", type:"Object Question", tense:"Present Simple"},
+  {s:"He teaches English", a:"what does he teach?", type:"Object Question", tense:"Present Simple"},
+  {s:"The cat catches mice", a:"what does the cat catch?", type:"Object Question", tense:"Present Simple"},
+
+  // OBJECT QUESTIONS - Past Simple
+  {s:"Julie loved this movie", a:"what did julie love?", type:"Object Question", tense:"Past Simple"},
+  {s:"Tom ate pizza yesterday", a:"what did tom eat?", type:"Object Question", tense:"Past Simple"},
+  {s:"Lucas played guitar", a:"what did lucas play?", type:"Object Question", tense:"Past Simple"},
+  {s:"She opened the door", a:"what did she open?", type:"Object Question", tense:"Past Simple"},
+  {s:"They meet John", a:"who did they meet?", type:"Object Question", tense:"Past Simple"},
+  {s:"Anna visited London", a:"where did anna visit?", type:"Object Question", tense:"Past Simple"},
+  {s:"He finished the project", a:"what did he finish?", type:"Object Question", tense:"Past Simple"},
+  {s:"We cleaned the house", a:"what did we clean?", type:"Object Question", tense:"Past Simple"},
+  {s:"The cat caught a mouse", a:"what did the cat catch?", type:"Object Question", tense:"Past Simple"},
+  {s:"She invited Marie", a:"who did she invite?", type:"Object Question", tense:"Past Simple"},
+
+  // OBJECT QUESTIONS - Present Perfect
+  {s:"She has watched TV", a:"what has she watched?", type:"Object Question", tense:"Present Perfect"},
+  {s:"He has visited Paris", a:"where has he visited?", type:"Object Question", tense:"Present Perfect"},
+  {s:"They have finished the work", a:"what have they finished?", type:"Object Question", tense:"Present Perfect"},
+  {s:"Julie has written a letter", a:"what has julie written?", type:"Object Question", tense:"Present Perfect"},
+  {s:"Tom has eaten the cake", a:"what has tom eaten?", type:"Object Question", tense:"Present Perfect"},
+
+  // OBJECT QUESTIONS - Present Continuous
+  {s:"They are playing football", a:"what are they playing?", type:"Object Question", tense:"Present Continuous"},
+  {s:"She is reading a book", a:"what is she reading?", type:"Object Question", tense:"Present Continuous"},
+  {s:"Tom is fixing the bike", a:"what is tom fixing?", type:"Object Question", tense:"Present Continuous"},
+  {s:"Lucas is watching TV", a:"what is lucas watching?", type:"Object Question", tense:"Present Continuous"},
+  {s:"They are building a bridge", a:"what are they building?", type:"Object Question", tense:"Present Continuous"},
+
+  // OBJECT QUESTIONS - Passive Voice
+  {s:"The cake was eaten by the children", a:"what was eaten by the children?", type:"Object Question", tense:"Passive Voice"},
+  {s:"The letter was written by Sarah", a:"what was written by sarah?", type:"Object Question", tense:"Passive Voice"},
+  {s:"The house was cleaned by them", a:"what was cleaned by them?", type:"Object Question", tense:"Passive Voice"},
+  {s:"The door was opened by Julie", a:"what was opened by julie?", type:"Object Question", tense:"Passive Voice"},
+  {s:"The bridge was built by the workers", a:"what was built by the workers?", type:"Object Question", tense:"Passive Voice"},
+
+  // SUBJECT QUESTIONS
+  {s:"Julie loves ice cream", a:"who loves ice cream?", type:"Subject Question", tense:"Present Simple"},
+  {s:"Tom ate pizza", a:"who ate pizza?", type:"Subject Question", tense:"Past Simple"},
+  {s:"She has watched TV", a:"who has watched TV?", type:"Subject Question", tense:"Present Perfect"},
+  {s:"They are playing football", a:"who is playing football?", type:"Subject Question", tense:"Present Continuous"},
+  {s:"The cake was eaten by the children", a:"who was eaten the cake?", type:"Subject Question", tense:"Passive Voice"}
+];
+
+let current, good=0, total=0, answered=false;
+
+function normalize(x){ return x.toLowerCase().trim().replace(/[?!.]$/,"").replace(/\s+/g," "); }
+
+function nextQ(){
+  current = data[Math.floor(Math.random()*data.length)];
+  document.getElementById("sentence").textContent = current.s;
+  document.getElementById("typeLabel").textContent = current.type;
+  document.getElementById("tenseLabel").textContent = current.tense;
+  const inp=document.getElementById("answer");
+  inp.value="";
+  inp.disabled=false;
+  inp.className="";
+  document.getElementById("result").innerHTML="";
+  document.getElementById("mainBtn").textContent = "Vérifier";
+  inp.focus();
+  answered=false;
+}
+
+function check(){
+  if(answered){ nextQ(); return; }
+  const inp=document.getElementById("answer");
+  const user=normalize(inp.value);
+  const goodAns=normalize(current.a);
+  total++;
+  
+  if(user===goodAns){
+    good++;
+    inp.classList.add("correct");
+    document.getElementById("result").innerHTML=`<div class="result correctBox">✨ Super ! C'est la bonne réponse.</div>`;
+  } else {
+    inp.classList.add("incorrect");
+    document.getElementById("result").innerHTML=
+      `<div class="result incorrectBox">Oups ! Pas tout à fait...
+        <div class="correction">La réponse était : <strong>${current.a}</strong></div>
+      </div>`;
+  }
+  
+  document.getElementById("good").textContent=good;
+  document.getElementById("total").textContent=total;
+  document.getElementById("mainBtn").textContent = "Continuer";
+  inp.disabled=true;
+  answered=true;
+}
+
+document.addEventListener("keydown", e=>{ if(e.key==="Enter") check(); });
+
+nextQ();
+</script>
+
+</body>
+</html>

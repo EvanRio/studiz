@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studiz - Verbes Irréguliers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* -----------------------
+            BASE (Style Studiz)
+        ------------------------*/
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #fbe4f5 0%, #f8f3ff 60%, #fff 100%);
+            min-height: 100vh;
+            color: #2b1b2e;
+            line-height: 1.6;
+        }
+
+        /* -----------------------
+            NAVBAR
+        ------------------------*/
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-text { font-weight: 700; font-size: 1.4rem; color: #e50585; text-decoration: none; }
+        .btn-nav {
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(229, 5, 133, 0.2);
+        }
+
+        /* -----------------------
+            CONTAINER & TITRES
+        ------------------------*/
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1 { text-align: center; font-size: 2.2rem; margin-bottom: 10px; color: #1d0720; }
+        .text-gradient {
+            background: linear-gradient(90deg, #e50585, #a94eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .score { text-align: center; color: #55355d; margin-bottom: 30px; font-weight: 600; }
+        .score span#correct { color: #e50585; font-size: 1.2rem; }
+
+        /* -----------------------
+            QUIZ CARD
+        ------------------------*/
+        .question-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .french-verb {
+            font-size: 2.2rem;
+            color: #1d0720;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: capitalize;
+        }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #666; font-weight: 600; font-size: 0.9rem; }
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: #fdfdfd;
+        }
+        input:focus { outline: none; border-color: #e50585; background: white; }
+        input.correct { border-color: #10b981; background-color: #f0fdf4; color: #10b981; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #ef4444; }
+
+        /* -----------------------
+            CORRECTION & RESULTS
+        ------------------------*/
+        .correction {
+            background: #fdf2f8;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: left;
+            border: 1px solid #fbcfe8;
+        }
+        .correction h3 { color: #e50585; margin-bottom: 15px; font-size: 1.1rem; }
+        .correction-item { margin-bottom: 8px; font-size: 1rem; }
+        .correction-item strong { color: #55355d; }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #e50585, #ff66b3);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(229, 5, 133, 0.2);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(229, 5, 133, 0.3); }
+
+        .result { text-align: center; font-size: 1.1em; margin-bottom: 20px; padding: 15px; border-radius: 12px; font-weight: bold; }
+        .result.correct { background: #f0fdf4; color: #10b981; }
+        .result.incorrect { background: #fef2f2; color: #ef4444; }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 25px; }
+            h1 { font-size: 1.8rem; }
+            .french-verb { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="https://studiz.fun" class="logo-text">Studiz</a>
+        </div>
+        <div class="nav-right">
+            <a href="train.html" class="btn-nav">Retour aux jeux</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🎯 <span class="text-gradient">Verbes Irréguliers</span></h1>
+        <div class="score">Score session : <span id="correct">0</span> / <span id="total">0</span></div>
+        
+        <div id="quiz-area">
+            <div class="question-card">
+                <div class="french-verb" id="french-verb"></div>
+                <div class="input-group">
+                    <label for="base">Base verbale</label>
+                    <input type="text" id="base" placeholder="ex: speak" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="preterit">Prétérit</label>
+                    <input type="text" id="preterit" placeholder="ex: spoke" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="participe">Participe passé</label>
+                    <input type="text" id="participe" placeholder="ex: spoken" autocomplete="off">
+                </div>
+            </div>
+            <div id="result-area"></div>
+            <button id="submit-btn" onclick="checkAnswer()">Vérifier</button>
+        </div>
+    </div>
+
+    <script>
+        const verbs = [
+            {base:"be", preterit:"was/were", participe:"been", french:"être"},
+            {base:"bear", preterit:"bore", participe:"borne", french:"porter, supporter"},
+            {base:"beat", preterit:"beat", participe:"beaten", french:"battre"},
+            {base:"become", preterit:"became", participe:"become", french:"devenir"},
+            {base:"begin", preterit:"began", participe:"begun", french:"commencer"},
+            {base:"bend", preterit:"bent", participe:"bent", french:"(se) courber"},
+            {base:"bet", preterit:"bet", participe:"bet", french:"parier"},
+            {base:"bite", preterit:"bit", participe:"bitten", french:"mordre"},
+            {base:"bleed", preterit:"bled", participe:"bled", french:"saigner"},
+            {base:"blow", preterit:"blew", participe:"blown", french:"souffler"},
+            {base:"break", preterit:"broke", participe:"broken", french:"casser"},
+            {base:"bring", preterit:"brought", participe:"brought", french:"apporter"},
+            {base:"build", preterit:"built", participe:"built", french:"construire"},
+            {base:"burn", preterit:"burnt", participe:"burnt", french:"brûler"},
+            {base:"burst", preterit:"burst", participe:"burst", french:"éclater"},
+            {base:"buy", preterit:"bought", participe:"bought", french:"acheter"},
+            {base:"cast", preterit:"cast", participe:"cast", french:"jeter, lancer"},
+            {base:"catch", preterit:"caught", participe:"caught", french:"attraper"},
+            {base:"choose", preterit:"chose", participe:"chosen", french:"choisir"},
+            {base:"cling", preterit:"clung", participe:"clung", french:"s'accrocher"},
+            {base:"come", preterit:"came", participe:"come", french:"venir"},
+            {base:"cost", preterit:"cost", participe:"cost", french:"coûter"},
+            {base:"cut", preterit:"cut", participe:"cut", french:"couper"},
+            {base:"deal", preterit:"dealt", participe:"dealt", french:"distribuer"},
+            {base:"dig", preterit:"dug", participe:"dug", french:"creuser"},
+            {base:"do", preterit:"did", participe:"done", french:"faire"},
+            {base:"draw", preterit:"drew", participe:"drawn", french:"dessiner"},
+            {base:"dream", preterit:"dreamt", participe:"dreamt", french:"rêver"},
+            {base:"drink", preterit:"drank", participe:"drunk", french:"boire"},
+            {base:"drive", preterit:"drove", participe:"driven", french:"conduire"},
+            {base:"dwell", preterit:"dwelt", participe:"dwelt", french:"habiter, résider"},
+            {base:"eat", preterit:"ate", participe:"eaten", french:"manger"},
+            {base:"fall", preterit:"fell", participe:"fallen", french:"tomber"},
+            {base:"feed", preterit:"fed", participe:"fed", french:"nourrir"},
+            {base:"feel", preterit:"felt", participe:"felt", french:"sentir, éprouver"},
+            {base:"fight", preterit:"fought", participe:"fought", french:"se battre, combattre"},
+            {base:"find", preterit:"found", participe:"found", french:"trouver"},
+            {base:"flee", preterit:"fled", participe:"fled", french:"fuir"},
+            {base:"fly", preterit:"flew", participe:"flown", french:"voler (air)"},
+            {base:"forbid", preterit:"forbade", participe:"forbidden", french:"interdire"},
+            {base:"forget", preterit:"forgot", participe:"forgotten", french:"oublier"},
+            {base:"forgive", preterit:"forgave", participe:"forgiven", french:"pardonner"},
+            {base:"foresee", preterit:"foresaw", participe:"foreseen", french:"prévoir"},
+            {base:"freeze", preterit:"froze", participe:"frozen", french:"geler"},
+            {base:"get", preterit:"got", participe:"got/gotten", french:"obtenir"},
+            {base:"give", preterit:"gave", participe:"given", french:"donner"},
+            {base:"go", preterit:"went", participe:"gone", french:"aller"},
+            {base:"grow", preterit:"grew", participe:"grown", french:"grandir"},
+            {base:"hang", preterit:"hung", participe:"hung", french:"pendre"},
+            {base:"have", preterit:"had", participe:"had", french:"avoir"},
+            {base:"hear", preterit:"heard", participe:"heard", french:"entendre"},
+            {base:"hide", preterit:"hid", participe:"hidden", french:"cacher"},
+            {base:"hit", preterit:"hit", participe:"hit", french:"frapper"},
+            {base:"hold", preterit:"held", participe:"held", french:"tenir"},
+            {base:"hurt", preterit:"hurt", participe:"hurt", french:"blesser"},
+            {base:"keep", preterit:"kept", participe:"kept", french:"garder"},
+            {base:"kneel", preterit:"knelt", participe:"knelt", french:"s'agenouiller"},
+            {base:"know", preterit:"knew", participe:"known", french:"savoir, connaître"},
+            {base:"lay", preterit:"laid", participe:"laid", french:"poser"},
+            {base:"lead", preterit:"led", participe:"led", french:"mener"},
+            {base:"lean", preterit:"leant", participe:"leant", french:"s'appuyer"},
+            {base:"leap", preterit:"leapt", participe:"leapt", french:"bondir"},
+            {base:"learn", preterit:"learnt", participe:"learnt", french:"apprendre"},
+            {base:"leave", preterit:"left", participe:"left", french:"quitter"},
+            {base:"lend", preterit:"lent", participe:"lent", french:"prêter"},
+            {base:"let", preterit:"let", participe:"let", french:"permettre"},
+            {base:"lie", preterit:"lay", participe:"lain", french:"être étendu"},
+            {base:"light", preterit:"lit", participe:"lit", french:"allumer"},
+            {base:"lose", preterit:"lost", participe:"lost", french:"perdre"},
+            {base:"make", preterit:"made", participe:"made", french:"fabriquer"},
+            {base:"mean", preterit:"meant", participe:"meant", french:"signifier"},
+            {base:"meet", preterit:"met", participe:"met", french:"rencontrer"},
+            {base:"mow", preterit:"mowed", participe:"mown", french:"tondre"},
+            {base:"overcome", preterit:"overcame", participe:"overcome", french:"surmonter"},
+            {base:"pay", preterit:"paid", participe:"paid", french:"payer"},
+            {base:"put", preterit:"put", participe:"put", french:"mettre"},
+            {base:"quit", preterit:"quit", participe:"quit", french:"cesser"},
+            {base:"read", preterit:"read", participe:"read", french:"lire"},
+            {base:"ride", preterit:"rode", participe:"ridden", french:"aller à vélo/cheval"},
+            {base:"ring", preterit:"rang", participe:"rung", french:"sonner"},
+            {base:"rise", preterit:"rose", participe:"risen", french:"se lever"},
+            {base:"run", preterit:"ran", participe:"run", french:"courir"},
+            {base:"say", preterit:"said", participe:"said", french:"dire"},
+            {base:"see", preterit:"saw", participe:"seen", french:"voir"},
+            {base:"seek", preterit:"sought", participe:"sought", french:"chercher"},
+            {base:"sell", preterit:"sold", participe:"sold", french:"vendre"},
+            {base:"send", preterit:"sent", participe:"sent", french:"envoyer"},
+            {base:"set", preterit:"set", participe:"set", french:"poser, se coucher (soleil)"},
+            {base:"sew", preterit:"sewed", participe:"sewn", french:"coudre"},
+            {base:"shake", preterit:"shook", participe:"shaken", french:"secouer"},
+            {base:"shine", preterit:"shone", participe:"shone", french:"briller"},
+            {base:"shoot", preterit:"shot", participe:"shot", french:"tirer"},
+            {base:"show", preterit:"showed", participe:"shown/showed", french:"montrer"},
+            {base:"shrink", preterit:"shrank", participe:"shrunk", french:"rétrécir"},
+            {base:"shut", preterit:"shut", participe:"shut", french:"fermer"},
+            {base:"sing", preterit:"sang", participe:"sung", french:"chanter"},
+            {base:"sink", preterit:"sank", participe:"sunk", french:"couler"},
+            {base:"sit", preterit:"sat", participe:"sat", french:"être assis"},
+            {base:"sleep", preterit:"slept", participe:"slept", french:"dormir"},
+            {base:"smell", preterit:"smelt", participe:"smelt", french:"sentir"},
+            {base:"speak", preterit:"spoke", participe:"spoken", french:"parler"},
+            {base:"spell", preterit:"spelt", participe:"spelt", french:"épeler"},
+            {base:"spend", preterit:"spent", participe:"spent", french:"dépenser"},
+            {base:"spill", preterit:"spilt", participe:"spilt", french:"renverser"},
+            {base:"spit", preterit:"spat", participe:"spat", french:"cracher"},
+            {base:"split", preterit:"split", participe:"split", french:"séparer"},
+            {base:"spoil", preterit:"spoilt", participe:"spoilt", french:"gâcher"},
+            {base:"spread", preterit:"spread", participe:"spread", french:"répandre"},
+            {base:"stand", preterit:"stood", participe:"stood", french:"être debout"},
+            {base:"steal", preterit:"stole", participe:"stolen", french:"voler"},
+            {base:"stick", preterit:"stuck", participe:"stuck", french:"coller"},
+            {base:"swear", preterit:"swore", participe:"sworn", french:"jurer"},
+            {base:"sweep", preterit:"swept", participe:"swept", french:"balayer"},
+            {base:"swim", preterit:"swam", participe:"swum", french:"nager"},
+            {base:"take", preterit:"took", participe:"taken", french:"prendre"},
+            {base:"teach", preterit:"taught", participe:"taught", french:"enseigner"},
+            {base:"tear", preterit:"tore", participe:"torn", french:"déchirer"},
+            {base:"tell", preterit:"told", participe:"told", french:"raconter"},
+            {base:"think", preterit:"thought", participe:"thought", french:"penser"},
+            {base:"thrive", preterit:"throve", participe:"thriven", french:"prospérer"},
+            {base:"throw", preterit:"threw", participe:"thrown", french:"jeter"},
+            {base:"undergo", preterit:"underwent", participe:"undergone", french:"subir"},
+            {base:"understand", preterit:"understood", participe:"understood", french:"comprendre"},
+            {base:"upset", preterit:"upset", participe:"upset", french:"bouleverser"},
+            {base:"wake", preterit:"woke", participe:"woken", french:"se réveiller"},
+            {base:"wear", preterit:"wore", participe:"worn", french:"porter (vêtements)"},
+            {base:"weep", preterit:"wept", participe:"wept", french:"pleurer"},
+            {base:"win", preterit:"won", participe:"won", french:"gagner"},
+            {base:"withdraw", preterit:"withdrew", participe:"withdrawn", french:"se retirer"},
+            {base:"write", preterit:"wrote", participe:"written", french:"écrire"}
+        ];
+
+        let verbWeights = JSON.parse(localStorage.getItem('verbWeights')) || {};
+        verbs.forEach((_, index) => { if (verbWeights[index] === undefined) verbWeights[index] = 1.0; });
+
+        let currentVerb, currentVerbIndex, correctCount = 0, totalCount = 0, answered = false;
+
+        function normalize(str) { return str.toLowerCase().trim().replace(/\s+/g, ' '); }
+        function checkVariants(userAnswer, correctAnswer) {
+            const userNorm = normalize(userAnswer);
+            return correctAnswer.split('/').map(v => normalize(v)).some(variant => userNorm === variant);
+        }
+
+        function loadNewVerb() {
+            let totalWeight = Object.values(verbWeights).reduce((a, b) => a + b, 0);
+            let random = Math.random() * totalWeight, sum = 0;
+            for (let i = 0; i < verbs.length; i++) {
+                sum += verbWeights[i];
+                if (random <= sum) { currentVerbIndex = i; currentVerb = verbs[i]; break; }
+            }
+            document.getElementById('french-verb').textContent = currentVerb.french;
+            document.getElementById('base').value = '';
+            document.getElementById('preterit').value = '';
+            document.getElementById('participe').value = '';
+            document.getElementById('result-area').innerHTML = '';
+            document.getElementById('submit-btn').textContent = 'Vérifier';
+            answered = false;
+            ['base', 'preterit', 'participe'].forEach(id => {
+                const input = document.getElementById(id);
+                input.classList.remove('correct', 'incorrect');
+                input.disabled = false;
+            });
+            document.getElementById('base').focus();
+        }
+
+        function checkAnswer() {
+            if (answered) { loadNewVerb(); return; }
+            const uB = document.getElementById('base').value, uPr = document.getElementById('preterit').value, uPa = document.getElementById('participe').value;
+            const bC = checkVariants(uB, currentVerb.base), prC = checkVariants(uPr, currentVerb.preterit), paC = checkVariants(uPa, currentVerb.participe);
+            const allCorrect = bC && prC && paC;
+            totalCount++;
+            
+            if (allCorrect) { 
+                correctCount++; 
+                verbWeights[currentVerbIndex] = Math.max(0.1, verbWeights[currentVerbIndex] * 0.5); 
+            } else { 
+                verbWeights[currentVerbIndex] += 2.5; 
+            }
+            
+            localStorage.setItem('verbWeights', JSON.stringify(verbWeights));
+            document.getElementById('correct').textContent = correctCount;
+            document.getElementById('total').textContent = totalCount;
+            document.getElementById('base').classList.add(bC ? 'correct' : 'incorrect');
+            document.getElementById('preterit').classList.add(prC ? 'correct' : 'incorrect');
+            document.getElementById('participe').classList.add(paC ? 'correct' : 'incorrect');
+            
+            ['base', 'preterit', 'participe'].forEach(id => document.getElementById(id).disabled = true);
+            
+            let res = allCorrect ? 
+                '<div class="result correct">✨ Bravo ! C\'est parfait.</div>' : 
+                `<div class="result incorrect">Oups ! Ce verbe reviendra plus souvent.</div><div class="correction"><h3>La bonne réponse :</h3><div class="correction-item"><strong>Base :</strong> ${currentVerb.base}</div><div class="correction-item"><strong>Prétérit :</strong> ${currentVerb.preterit}</div><div class="correction-item"><strong>Participe :</strong> ${currentVerb.participe}</div></div>`;
+            
+            document.getElementById('result-area').innerHTML = res;
+            document.getElementById('submit-btn').textContent = 'Continuer';
+            answered = true;
+        }
+
+        document.addEventListener('keypress', e => { if (e.key === 'Enter') checkAnswer(); });
+        loadNewVerb();
+    </script>
+</body>
+</html>
