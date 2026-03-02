@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tuto - Ajouter son planning sur Studiz</title>
+  <link rel="icon" type="image/png" href="pp.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tuto-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 8%;
+    }
+    .step-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-left: 5px solid #e50585;
+    }
+    .step-number {
+      background: #e50585;
+      color: white;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+    .step-content h3 {
+      color: #1d0720;
+      margin-bottom: 10px;
+    }
+    .step-image {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      align-self: center;
+      border: 2px solid #f0f0f0;
+    }
+    .tuto-intro {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .back-home {
+        margin-top: 20px;
+        display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+        <img src="icon.png" alt="Studiz Logo" class="logo" />
+        <span class="logo-text">Studiz</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="/" class="btn-nav">Retour à l'accueil</a>
+    </div>
+  </nav>
+
+  <main class="tuto-container">
+    <div class="tuto-intro fade-in">
+        <h1>Comment ajouter ton <span class="text-gradient pink">planning</span> ?</h1>
+        <p>Suis ces étapes simples pour synchroniser ton emploi du temps ENT avec Studiz.</p>
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Accéder à l'ENT</h3>
+        <p>Connecte-toi à ton environnement numérique de travail (ENT) habituel et rends-toi dans la section "Emploi du temps".</p>
+      </div>
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Choisir le planning</h3>
+        <p>Affiche l'emploi du temps spécifique que tu souhaites ajouter à l'application Studiz.</p>
+        <img src="tuto0.png" alt="Choose classe" class="step-image" />
+      </div>
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Exporter le calendrier</h3>
+        <p>Cherche et clique sur le bouton <strong>"Exporter"</strong>.</p>
+      </div>
+      <img src="tuto1.png" alt="Appui sur exporter" class="step-image" />
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Définir les dates</h3>
+        <p>Pour tout englober, mets la date de début au <strong>1er septembre</strong> de l'année actuelle et la date de fin au <strong>30 septembre</strong> de l'année suivante.</p>
+      </div>
+      <img src="tuto2.png" alt="Réglage des dates" class="step-image" />
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h3>Format iCalendar</h3>
+        <p>Vérifie que le format <strong>iCalendar</strong> est bien sélectionné.</p>
+      </div>
+      <img src="tuto3.png" alt="Sélection iCalendar" class="step-image" />
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h3>Générer l'URL</h3>
+        <p>Clique sur le bouton <strong>"Exporter URL"</strong>.</p>
+      </div>
+      <img src="tuto4.png" alt="Bouton exporter URL" class="step-image" />
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <h3>Copier le lien</h3>
+        <p>Copie l'adresse (le lien) qui vient de s'afficher à l'écran.</p>
+      </div>
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">8</div>
+      <div class="step-content">
+        <h3>Ouvrir Studiz</h3>
+        <p>Dans Studiz, va dans les <strong>Paramètres</strong> et clique sur <strong>"Ajouter planning avec lien"</strong>.</p>
+      </div>
+      <img src="tuto5.png" alt="Paramètres Studiz" class="step-image" />
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">9</div>
+      <div class="step-content">
+        <h3>Configuration</h3>
+        <p>Donne un nom à ton planning (ex: "Cours L1") et colle le lien que tu as copié précédemment.</p>
+      </div>
+    </div>
+
+    <div class="step-card fade-in">
+      <div class="step-number">10</div>
+      <div class="step-content">
+        <h3>C'est terminé !</h3>
+        <p>Clique sur <strong>"Ajouter"</strong> et voilà ! Ton planning apparaîtra automatiquement dans l'app. 🐭</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;">
+        <a href="/" class="btn-primary">Retourner à l'accueil</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>2025 Studiz — Fait avec 💖 par l'équipe Studiz</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
