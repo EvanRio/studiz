@@ -168,39 +168,46 @@
 </section>
 
 <style>
-  /* On définit l'effet de survol ici */
-  .btn-studiz:hover {
-    transform: scale(1.05); /* Agrandi légèrement */
-    filter: brightness(1.1); /* Devient plus lumineux */
-    box-shadow: 0 10px 20px rgba(255, 23, 100, 0.3); /* Ajoute une ombre rose */
+  .btn-studiz {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Dégradé harmonisé avec le header */
+    background: linear-gradient(135deg, #e50585, #ff66b3); 
+    padding: 12px 28px; 
+    /* Border-radius réduit (au lieu de 50px) */
+    border-radius: 10px; 
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 15px rgba(255, 23, 100, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
+
+  .btn-studiz:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 20px rgba(255, 23, 100, 0.4);
+  }
+
   .btn-studiz:active {
-    transform: scale(0.98); /* Effet d'enfoncement au clic */
+    transform: translateY(1px);
   }
 </style>
 
 <section id="download" style="text-align: center; padding: 50px 20px;">
-  <h2 style="margin-bottom: 5px; font-family: sans-serif;">Téléchargez Studiz dès maintenant</h2>
+  <h2 style="margin-bottom: 5px; color: #e50585;">Téléchargez Studiz dès maintenant</h2>
   
-  <p style="margin-top: 0; margin-bottom: 25px; font-weight: 600; color: #FF1764; font-family: sans-serif;">
+  <p style="margin-top: 0; margin-bottom: 25px; font-weight: 600; color: #2b1b2e;">
     Version v9 (04/03/2026)
   </p>
 
   <div class="download-btn-wrapper">
-    <a href="https://studizboard.vercel.app/api/dl" 
-       class="btn-studiz" 
-       style="text-decoration: none; 
-              display: inline-block; 
-              background: linear-gradient(135deg, #FF1764, #FF5E92); 
-              padding: 15px 40px; 
-              border-radius: 12px; 
-              color: white; 
-              font-weight: bold; 
-              font-size: 1.1rem; 
-              font-family: sans-serif;
-              transition: all 0.3s ease; /* Animation fluide */
-              cursor: pointer;">
-      📲 Télécharger version android
+    <a href="https://studizboard.vercel.app/api/dl" class="btn-studiz">
+      📲 Version Android
     </a>
   </div>
 </section>
